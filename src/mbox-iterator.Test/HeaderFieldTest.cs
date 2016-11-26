@@ -1,7 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using mbox_iterator.Database;
+
 using System.Text;
+using mbox_iterator.Data;
 
 namespace mbox_iterator.Test
 {

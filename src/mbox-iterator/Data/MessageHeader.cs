@@ -5,15 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace mbox_iterator.Database
+namespace mbox_iterator.Data
 {
     public class MessageHeader
     {
 
         #region Properties
-        [FieldName("From")]
-        public string Sender { get; set; }
+        //[FieldName("From")]
+        //public string Sender { get; set; }
 
+
+        public IEnumerable<HeaderField> Fields { get; set; }
 
 
         #endregion

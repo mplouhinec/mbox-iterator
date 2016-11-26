@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace mbox_iterator.Database
+namespace mbox_iterator.Data
 {
     public class MessageBody
     {
