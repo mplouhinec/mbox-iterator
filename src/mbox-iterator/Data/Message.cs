@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,6 +26,11 @@ namespace mbox_iterator.Data
         /// </summary>
         public const int MAX_LINE_CHARACTERS_LENGTH = 1000;
 
+        /// <summary>
+        /// String representing the beginning of a message inside a mbox file
+        /// </summary>
+        public const string START_MESSAGE_STRING = "From ";
+
         #endregion
 
         #region Properties
@@ -40,5 +46,73 @@ namespace mbox_iterator.Data
         public MessageBody Body { get; set; }
 
         #endregion
+
+        #region Méthods
+
+        /// <summary>
+        /// Read an mbox file and return all messages in the mbox file
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        public static IList<Message> GetMessages(string filePath)
+        {
+
+            string line;
+
+            if (string.IsNullOrEmpty(filePath))
+                throw new ArgumentNullException("filePath");
+
+            if (!File.Exists(filePath))
+                throw new FileNotFoundException("The file doesn't exist.", filePath);
+
+            StringBuilder stringBuilderMessageBuffered = new StringBuilder();
+            IList<Message> messages = new List<Message>();
+
+            using (FileStream fileStream = File.Open(filePath, FileMode.Open, FileAccess.Read))
+            {
+                using (BufferedStream bufferedStream = new BufferedStream(fileStream))
+                {
+                    using (StreamReader streamReader = new StreamReader(bufferedStream))
+                    {
+                        while ((line = streamReader.ReadLine()) != null)
+                        {
+                            if (line.StartsWith(START_MESSAGE_STRING))
+                            {
+                                // Manage message in string builder.
+                                var newMessage = fromString(stringBuilderMessageBuffered.ToString());
+                                messages.Add(newMessage);
+
+                                // Start new message
+                                stringBuilderMessageBuffered.Clear();
+                            }
+                            else
+                            {
+                                stringBuilderMessageBuffered.Append(line);
+                            }
+                        }
+
+                        var lastMessage = fromString(stringBuilderMessageBuffered.ToString());
+                        messages.Add(lastMessage);
+                    }
+                }
+            }
+
+            return messages;
+        }
+
+        /// <summary>
+        /// Build a message from a block string
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        private static Message fromString(string data)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        #endregion
+
+
     }
 }

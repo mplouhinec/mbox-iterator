@@ -11,8 +11,16 @@ namespace mbox_iterator.Data
     {
 
         #region Properties
-        //[FieldName("From")]
-        //public string Sender { get; set; }
+
+        /// <summary>
+        /// Sender extracted from the FROM line
+        /// </summary>
+        public string Sender { get; set; }
+
+        /// <summary>
+        /// Date extracted from the FROM line
+        /// </summary>
+        public DateTime Date { get; set; }
 
 
         public IEnumerable<HeaderField> Fields { get; set; }
