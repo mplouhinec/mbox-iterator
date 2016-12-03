@@ -13,9 +13,9 @@ namespace mbox_iterator.Data
 
         #region Privates elements
 
-        private string _sender;
+        //private string _sender;
 
-        private DateTime _date;
+        //private DateTime _date;
 
         private IList<HeaderField> _fields = new List<HeaderField>();
 
@@ -27,20 +27,20 @@ namespace mbox_iterator.Data
         /// <summary>
         /// Sender extracted from the FROM line
         /// </summary>
-        public string Sender
-        {
-            get { return _sender; }
-            set { _sender = value; }
-        }
+        //public string Sender
+        //{
+        //    get { return _sender; }
+        //    set { _sender = value; }
+        //}
 
-        /// <summary>
-        /// Date extracted from the FROM line
-        /// </summary>
-        public DateTime Date
-        {
-            get { return _date; }
-            set { _date = value; }
-        }
+        ///// <summary>
+        ///// Date extracted from the FROM line
+        ///// </summary>
+        //public DateTime Date
+        //{
+        //    get { return _date; }
+        //    set { _date = value; }
+        //}
 
 
         public IList<HeaderField> Fields
