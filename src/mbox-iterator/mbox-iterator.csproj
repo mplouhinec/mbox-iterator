@@ -43,8 +43,8 @@
     <Compile Include="Attributes\FieldNameAttribute.cs" />
     <Compile Include="Data\HeaderField.cs" />
     <Compile Include="Data\Message.cs" />
-    <Compile Include="Data\MessageBody.cs" />
     <Compile Include="Data\MessageHeader.cs" />
+    <Compile Include="Extensions\StringExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

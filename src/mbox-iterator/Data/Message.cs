@@ -43,7 +43,7 @@ namespace mbox_iterator.Data
         /// <summary>
         /// Body of the message
         /// </summary>
-        public MessageBody Body { get; set; }
+        public string Body { get; set; }
 
         #endregion
 
@@ -80,14 +80,16 @@ namespace mbox_iterator.Data
                             {
                                 // Manage message in string builder.
                                 var newMessage = fromString(stringBuilderMessageBuffered.ToString());
-                                messages.Add(newMessage);
+                                if(newMessage != null)
+                                    messages.Add(newMessage);
 
                                 // Start new message
                                 stringBuilderMessageBuffered.Clear();
+                                stringBuilderMessageBuffered.AppendLine(line);
                             }
                             else
                             {
-                                stringBuilderMessageBuffered.Append(line);
+                                stringBuilderMessageBuffered.AppendLine(line);
                             }
                         }
 
@@ -107,7 +109,31 @@ namespace mbox_iterator.Data
         /// <returns></returns>
         private static Message fromString(string data)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(data))
+                return null;
+
+            Message result;
+
+            try
+            {
+                var index = data.IndexOf(END_LINE_CHARACTER + END_LINE_CHARACTER);
+                var stringHeader = data.Substring(0, index);
+                var body = data.Substring(index + 4, data.Length - index - 4);
+
+                var header = MessageHeader.FromString(stringHeader);
+
+                result = new Message();
+                result.Header = header;
+                result.Body = body;
+
+                return result;
+            }
+            catch(Exception ex)
+            {
+                return null;
+            }
+
+            
         }
 
 

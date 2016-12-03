@@ -63,7 +63,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="DataTest\mbox1.mbox" />
+    <None Include="DataTest\mbox1.mbox">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

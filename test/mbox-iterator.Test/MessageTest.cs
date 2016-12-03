@@ -27,5 +27,32 @@ namespace mbox_iterator.Test
             string filePath = @"Z:\blabla";
             var result = Message.GetMessages(filePath);
         }
+
+        [TestMethod]
+        [DeploymentItem(@"DataTest\mbox1.mbox", "data")]
+        public void TestMessageFromStringMBox1()
+        {
+            string mboxData = File.ReadAllText(@"data\mbox1.mbox");
+            PrivateType privateType = new PrivateType(typeof(Message));
+            Message message = (Message)privateType.InvokeStatic("fromString", new object[] { mboxData });
+
+            Assert.IsNotNull(message);
+            Assert.AreEqual(5, message.Header.Fields.Count);
+            Assert.AreEqual("How's that mail system project coming along?", message.Body);
+        }
+
+        [TestMethod]
+        [DeploymentItem(@"DataTest\mbox1.mbox", "data")]
+        public void TestGetMessagesFromMBox1()
+        {
+            string mboxData = File.ReadAllText(@"data\mbox1.mbox");
+
+            var messages = Message.GetMessages(@"data\mbox1.mbox");
+
+            Assert.IsNotNull(messages);
+            Assert.AreEqual(1, messages.Count);
+            Assert.AreEqual("How's that mail system project coming along?", messages[0].Body.Trim());
+        }
+
     }
 }
