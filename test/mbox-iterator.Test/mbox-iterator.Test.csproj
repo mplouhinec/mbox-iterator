@@ -63,6 +63,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="DataTest\mbox2.mbox">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="DataTest\mbox1.mbox">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

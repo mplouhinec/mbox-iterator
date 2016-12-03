@@ -54,5 +54,17 @@ namespace mbox_iterator.Test
             Assert.AreEqual("How's that mail system project coming along?", messages[0].Body.Trim());
         }
 
+        [TestMethod]
+        [DeploymentItem(@"DataTest\mbox2.mbox", "data")]
+        public void TestGetMessagesFromMBox2()
+        {
+            string mboxData = File.ReadAllText(@"data\mbox2.mbox");
+
+            var messages = Message.GetMessages(@"data\mbox2.mbox");
+
+            Assert.IsNotNull(messages);
+            Assert.AreEqual(5, messages.Count);
+        }
+
     }
 }
