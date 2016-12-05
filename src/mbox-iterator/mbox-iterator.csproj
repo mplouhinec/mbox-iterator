@@ -45,6 +45,7 @@
     <Compile Include="Data\Message.cs" />
     <Compile Include="Data\MessageHeader.cs" />
     <Compile Include="Extensions\StringExtension.cs" />
+    <Compile Include="MBoxIterator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

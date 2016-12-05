@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using mbox_iterator.Data;
 using System.IO;
+using System.Diagnostics;
 
 namespace mbox_iterator.Test
 {
@@ -33,8 +34,10 @@ namespace mbox_iterator.Test
         public void TestMessageFromStringMBox1()
         {
             string mboxData = File.ReadAllText(@"data\mbox1.mbox");
-            PrivateType privateType = new PrivateType(typeof(Message));
-            Message message = (Message)privateType.InvokeStatic("fromString", new object[] { mboxData });
+            
+            //PrivateType privateType = new PrivateType(typeof(Message));
+            //Message message = (Message)privateType.InvokeStatic("fromString", new object[] { mboxData });
+            Message message = Message.FromString(mboxData);
 
             Assert.IsNotNull(message);
             Assert.AreEqual(5, message.Header.Fields.Count);
@@ -60,7 +63,19 @@ namespace mbox_iterator.Test
         {
             string mboxData = File.ReadAllText(@"data\mbox2.mbox");
 
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+
             var messages = Message.GetMessages(@"data\mbox2.mbox");
+
+            sw.Stop();
+            TimeSpan ts = sw.Elapsed;
+
+            // Format and display the TimeSpan value.
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:000}",
+                ts.Hours, ts.Minutes, ts.Seconds,
+                ts.Milliseconds);
+            Console.WriteLine("MessageReader RunTime " + elapsedTime);
 
             Assert.IsNotNull(messages);
             Assert.AreEqual(5, messages.Count);

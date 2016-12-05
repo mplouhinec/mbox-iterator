@@ -53,6 +53,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="HeaderFieldTest.cs" />
+    <Compile Include="MBoxIteratorTest.cs" />
     <Compile Include="MessageTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

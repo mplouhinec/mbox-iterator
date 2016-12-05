@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace mbox_iterator.Data
     /// <summary>
     /// Message Class
     /// </summary>
-    public class Message
+    public class Message : IEnumerable<Message>
     {
         #region Constants
 
@@ -44,7 +45,8 @@ namespace mbox_iterator.Data
         /// Body of the message
         /// </summary>
         public string Body { get; set; }
-
+        
+        
         #endregion
 
         #region Méthods
@@ -79,7 +81,7 @@ namespace mbox_iterator.Data
                             if (line.StartsWith(START_MESSAGE_STRING))
                             {
                                 // Manage message in string builder.
-                                var newMessage = fromString(stringBuilderMessageBuffered.ToString());
+                                var newMessage = FromString(stringBuilderMessageBuffered.ToString());
                                 if(newMessage != null)
                                     messages.Add(newMessage);
 
@@ -93,7 +95,7 @@ namespace mbox_iterator.Data
                             }
                         }
 
-                        var lastMessage = fromString(stringBuilderMessageBuffered.ToString());
+                        var lastMessage = FromString(stringBuilderMessageBuffered.ToString());
                         messages.Add(lastMessage);
                     }
                 }
@@ -107,7 +109,7 @@ namespace mbox_iterator.Data
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        private static Message fromString(string data)
+        public static Message FromString(string data)
         {
             if (string.IsNullOrEmpty(data))
                 return null;
@@ -134,6 +136,16 @@ namespace mbox_iterator.Data
             }
 
             
+        }
+
+        public IEnumerator<Message> GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
 
 
